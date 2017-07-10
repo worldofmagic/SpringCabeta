@@ -49,9 +49,9 @@ public class UserControllers {
 
 
     @RequestMapping(value ="/userinfo/{uid:\\d+}",method = RequestMethod.GET)
-    public UserInfo getUserInfo(@PathVariable("uid") int userId)
+    public UserInfo getUserInfo(@PathVariable("uid") int user_id)
     {
-        return userMapper.getUserById(userId);
+        return userService.getUserInfo(user_id);
     }
 
     @RequestMapping(value ="/userinfo",method = RequestMethod.GET)

@@ -1,5 +1,6 @@
 package com.mephisto.Services;
 
+import com.mephisto.Entities.UserInfo;
 import com.mephisto.Mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,5 +40,12 @@ public class UserService {
             return false;
         }
 
+    }
+
+
+
+    public UserInfo getUserInfo(int userID)
+    {
+        return userMapper.getUserById(userID);
     }
 }

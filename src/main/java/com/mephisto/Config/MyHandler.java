@@ -13,12 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestControllerAdvice
 public class MyHandler {
-    @ExceptionHandler(value = {Exception.class})
-    public ErrorResult defaultHandler(Exception ex,HttpServletResponse rs)
-    {
-        ErrorResult  errorResult = new ErrorResult("null",ex.getMessage(),rs.getStatus() );
-        return errorResult;
-    }
 
     @ExceptionHandler(value = {MyException.class})
     public ErrorResult myHandler(MyException ex,HttpServletResponse rs)
