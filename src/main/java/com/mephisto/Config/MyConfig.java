@@ -5,6 +5,7 @@ import com.mephisto.Services.RedisCache;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -37,5 +38,13 @@ public class MyConfig {
         dataSource.setPassword("9EANRo4Df3ElGfSr");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         return dataSource;
+    }
+
+    @Bean
+    public DataSourceTransactionManager dataSourceTransactionManager()
+    {
+        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+        dataSourceTransactionManager.setDataSource(dataSource());
+        return dataSourceTransactionManager;
     }
 }

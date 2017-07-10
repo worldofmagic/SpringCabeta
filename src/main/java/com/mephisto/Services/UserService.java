@@ -3,6 +3,7 @@ package com.mephisto.Services;
 import com.mephisto.Mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by world on 2017/7/10.
@@ -13,18 +14,30 @@ public class UserService {
 
     @Autowired
     UserMapper userMapper;
+
+
     /**
      * transfer user coin
-     * @param fromUser
-     * @param toUser
-     * @param coin
-     * @return
+     * @param fromUser transaction from which user
+     * @param toUser tansaction to which user
+     * @param coin transaction amount
+     * @return true
      */
+    @Transactional
     public boolean transferCoin(int fromUser, int toUser, int coin)
     {
-        userMapper.updateUserCoin(fromUser,coin);
-        userMapper.updateUserCoin(toUser, -coin);
-        return true;
+        if(userMapper.updateUserCoin(fromUser,coin)==1)
+        {
+            if(userMapper.updateUserCoin(toUser, -coin)!=1)
+            {
+                throw new RuntimeException("second step failed");
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
     }
 }
